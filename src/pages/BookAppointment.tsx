@@ -53,8 +53,12 @@ const BookAppointment: React.FC = () => {
 
     setIsSubmitting(true);
     
-    // Log appointment data to console and network
+    // Get the selected slot details
+    const selectedSlotData = doctor.availableSlots.find(slot => slot.id === selectedSlot);
+    
+    // Create appointment data with proper date formatting
     const appointmentData = {
+      id: `APT-${Date.now()}`,
       doctorId: doctor.id,
       doctorName: doctor.name,
       specialization: doctor.specialization,
@@ -62,16 +66,42 @@ const BookAppointment: React.FC = () => {
       patientEmail,
       patientPhone,
       selectedSlot,
-      reason,
+      date: selectedSlotData?.date || new Date().toISOString().split('T')[0],
+      time: selectedSlotData?.time || 'Time not specified',
+      reason: reason || 'General consultation',
       fees: doctor.fees,
+      status: 'confirmed' as const,
+      createdAt: new Date().toISOString(),
       timestamp: new Date().toISOString(),
       appointmentId: `APT-${Date.now()}`
     };
     
-    console.log('Appointment booking data:', appointmentData);
+    // Log comprehensive appointment data to console
+    console.log('=== APPOINTMENT BOOKING DATA ===');
+    console.log('Appointment ID:', appointmentData.appointmentId);
+    console.log('Booking Date/Time:', new Date().toLocaleString());
+    console.log('Patient Details:', {
+      name: patientName,
+      email: patientEmail,
+      phone: patientPhone
+    });
+    console.log('Doctor Details:', {
+      id: doctor.id,
+      name: doctor.name,
+      specialization: doctor.specialization,
+      fees: doctor.fees
+    });
+    console.log('Appointment Schedule:', {
+      date: appointmentData.date,
+      time: appointmentData.time,
+      selectedSlot: selectedSlot
+    });
+    console.log('Reason for Visit:', reason || 'General consultation');
+    console.log('Full Appointment Object:', appointmentData);
+    console.log('=== END BOOKING DATA ===');
     
     try {
-      // Simulate API call - this would go to your Node.js backend
+      // Try to save to API first (will fail in demo but logs the attempt)
       const response = await fetch('/api/appointments', {
         method: 'POST',
         headers: {
@@ -81,9 +111,33 @@ const BookAppointment: React.FC = () => {
       });
       
       console.log('API Response Status:', response.status);
+      console.log('API Response OK:', response.ok);
       
-      // Simulate successful booking
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Save to localStorage regardless of API response for demo purposes
+      const existingAppointments = JSON.parse(localStorage.getItem('user_appointments') || '[]');
+      existingAppointments.push(appointmentData);
+      localStorage.setItem('user_appointments', JSON.stringify(existingAppointments));
+      
+      console.log('Appointment saved to localStorage');
+      console.log('Total appointments in storage:', existingAppointments.length);
+      
+      toast({
+        title: "Appointment Booked Successfully!",
+        description: `Your appointment with ${doctor.name} has been confirmed for ${appointmentData.date} at ${appointmentData.time}.`,
+      });
+      
+      // Navigate to appointments page
+      navigate('/appointments');
+      
+    } catch (error) {
+      console.error('Appointment booking error:', error);
+      
+      // Still save to localStorage and show success for demo
+      const existingAppointments = JSON.parse(localStorage.getItem('user_appointments') || '[]');
+      existingAppointments.push(appointmentData);
+      localStorage.setItem('user_appointments', JSON.stringify(existingAppointments));
+      
+      console.log('Appointment saved to localStorage (fallback)');
       
       toast({
         title: "Appointment Booked Successfully!",
@@ -91,16 +145,6 @@ const BookAppointment: React.FC = () => {
       });
       
       navigate('/appointments');
-    } catch (error) {
-      console.error('Appointment booking error:', error);
-      
-      // Even if API fails, still show success for demo
-      toast({
-        title: "Appointment Booked Successfully!",
-        description: `Your appointment with ${doctor.name} has been confirmed.`,
-      });
-      
-      navigate('/');
     } finally {
       setIsSubmitting(false);
     }

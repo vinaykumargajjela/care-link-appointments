@@ -25,12 +25,15 @@ export interface TimeSlot {
 export interface Appointment {
   id: string;
   doctorId: string;
+  doctorName?: string;
+  specialization?: string;
   patientName: string;
   patientEmail: string;
   patientPhone: string;
   date: string;
   time: string;
   reason: string;
+  fees?: number;
   status: 'pending' | 'confirmed' | 'cancelled';
   createdAt: string;
 }
