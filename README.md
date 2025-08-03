@@ -1,5 +1,8 @@
 # 🏥 HealthCare Connect - Appointment Booking System
 
+
+**🔗 [Live Demo →](https://care-link-appointments.vercel.app/)**
+
 A modern, full-stack healthcare appointment booking application built with React, TypeScript, Node.js, and Express.
 
 ## 🚀 Features
