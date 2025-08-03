@@ -1,73 +1,219 @@
-# Welcome to your Lovable project
+# 🏥 HealthCare Connect - Appointment Booking System
 
-## Project info
+A modern, full-stack healthcare appointment booking application built with React, TypeScript, Node.js, and Express.
 
-**URL**: https://lovable.dev/projects/463e076b-5e1c-4b47-9fbc-cc27adef5232
+## 🚀 Features
 
-## How can I edit this code?
+- **User Authentication** - Secure login and registration system
+- **Doctor Directory** - Browse and search healthcare professionals
+- **Real-time Booking** - Book appointments with available time slots
+- **Professional UI** - Clean, medical-themed design system
+- **Responsive Design** - Works seamlessly on all devices
+- **Backend API** - Full Node.js/Express backend with data logging
+- **Search & Filter** - Find doctors by specialization and availability
 
-There are several ways of editing your application.
+## 🛠️ Technology Stack
 
-**Use Lovable**
+### Frontend
+- **React 18** with TypeScript
+- **Tailwind CSS** for styling
+- **Shadcn/ui** components
+- **React Router** for navigation
+- **React Query** for state management
+- **Vite** for development and building
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/463e076b-5e1c-4b47-9fbc-cc27adef5232) and start prompting.
+### Backend
+- **Node.js** with Express
+- **CORS** enabled for frontend communication
+- **JSON** data storage (easily replaceable with database)
+- **RESTful API** design
 
-Changes made via Lovable will be committed automatically to this repo.
+## 📋 Prerequisites
 
-**Use your preferred IDE**
+- Node.js (v16 or higher)
+- npm or yarn package manager
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🚀 Quick Start
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### 1. Install Dependencies
+```bash
+npm install
 ```
 
-**Edit a file directly in GitHub**
+### 2. Start the Development Servers
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+#### Option A: Start Both Frontend and Backend (Recommended)
+```bash
+npm run dev
+```
+This will start:
+- Frontend on http://localhost:8080
+- Backend API on http://localhost:3001
 
-**Use GitHub Codespaces**
+#### Option B: Start Individually
+```bash
+# Terminal 1 - Backend API
+npm run server
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Terminal 2 - Frontend
+npm run client
+```
 
-## What technologies are used for this project?
+### 3. Access the Application
+- **Frontend**: http://localhost:8080
+- **Backend API**: http://localhost:3001/api
+- **Health Check**: http://localhost:3001/api/health
 
-This project is built with:
+## 📡 API Endpoints
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Authentication
+- `POST /api/auth/login` - User login
+- `POST /api/auth/register` - User registration
 
-## How can I deploy this project?
+### Doctors
+- `GET /api/doctors` - Get all doctors
 
-Simply open [Lovable](https://lovable.dev/projects/463e076b-5e1c-4b47-9fbc-cc27adef5232) and click on Share -> Publish.
+### Appointments
+- `POST /api/appointments` - Book appointment
+- `GET /api/appointments/:userId` - Get user appointments
 
-## Can I connect a custom domain to my Lovable project?
+### System
+- `GET /api/health` - Health check
+- `GET /api/stats` - System statistics
 
-Yes, you can!
+## 🔍 Testing the Application
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### 1. Registration/Login
+- Visit http://localhost:8080
+- Click "Get Started" or "Sign In"
+- Register with any email/password or login
+- Check browser console for authentication logs
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### 2. Browse Doctors
+- Use search and filter functionality
+- View doctor profiles with detailed information
+- Check availability status
+
+### 3. Book Appointments
+- Select a doctor and click "Book Now"
+- Choose available time slots
+- Fill in patient information
+- Submit booking and check console/network tabs
+
+### 4. Monitor Backend
+- Check backend console for API logs
+- Visit http://localhost:3001/api/health for status
+- Monitor network tab in browser for API calls
+
+## 📊 Data Logging
+
+The application logs comprehensive data to both:
+- **Browser Console** - User actions and responses
+- **Backend Console** - API requests and database operations
+- **Network Tab** - All HTTP requests and responses
+
+## 🏗️ Project Structure
+
+```
+healthcare-booking-system/
+├── src/
+│   ├── components/        # Reusable UI components
+│   ├── contexts/         # React contexts (Auth)
+│   ├── data/            # Mock data and constants
+│   ├── pages/           # Page components
+│   ├── types/           # TypeScript interfaces
+│   ├── assets/          # Images and static files
+│   └── lib/             # Utility functions
+├── server.js            # Node.js backend server
+├── public/              # Static assets
+└── package.json         # Dependencies and scripts
+```
+
+## 🎨 Design System
+
+The application uses a professional medical design system with:
+- **Medical Blue Primary** (#3b82f6)
+- **Healing Green Accent** (#059669)
+- **Professional Typography**
+- **Subtle Shadows and Gradients**
+- **Responsive Grid Layouts**
+
+## 🔧 Production Deployment
+
+### Build for Production
+```bash
+npm run build
+```
+
+### Start Production Server
+```bash
+npm start
+```
+
+### Environment Variables
+Set these for production:
+- `NODE_ENV=production`
+- `PORT=3000` (or your preferred port)
+
+## 📱 Features in Detail
+
+### Authentication System
+- Secure login/registration with form validation
+- User session management with localStorage
+- Protected routes and user context
+
+### Doctor Management
+- Professional doctor profiles with photos
+- Specialization categories and filtering
+- Experience, ratings, and reviews display
+- Real-time availability status
+
+### Appointment Booking
+- Time slot selection with visual feedback
+- Patient information forms with validation
+- Booking confirmation and success messages
+- Fee calculation and payment summary
+
+### Search & Filter
+- Real-time search across doctor names and specializations
+- Filter by specialization and availability
+- Results counter and clear filters option
+
+## 🛡️ Security Features
+
+- Input validation on both frontend and backend
+- CORS configuration for secure API access
+- Environment-based configuration
+- Error handling and logging
+
+## 🔮 Future Enhancements
+
+- Database integration (MongoDB/PostgreSQL)
+- Email notifications and confirmations
+- Payment gateway integration
+- Video consultation features
+- Admin panel for doctor management
+- Advanced scheduling and calendar integration
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For support and questions:
+- Check the browser console for detailed logs
+- Monitor the backend console for API issues
+- Verify network requests in browser dev tools
+
+---
+
+**Built with ❤️ for modern healthcare management**
