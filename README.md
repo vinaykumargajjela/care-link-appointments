@@ -87,6 +87,8 @@ Bash
 
 # Terminal 2: Start the Backend (Node/Express)
 node server.js
+
+
 3. Access the Application
 Frontend: http://localhost:8080
 
